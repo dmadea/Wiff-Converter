@@ -1,0 +1,83 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Clearcore2.Compression">
+      <HintPath>Resources\Clearcore2.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="Clearcore2.Data">
+      <HintPath>Resources\Clearcore2.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Clearcore2.Data.AnalystDataProvider">
+      <HintPath>Resources\Clearcore2.Data.AnalystDataProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="Clearcore2.Data.Client">
+      <HintPath>Resources\Clearcore2.Data.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Clearcore2.Data.CommonInterfaces">
+      <HintPath>Resources\Clearcore2.Data.CommonInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Clearcore2.Data.Wiff2">
+      <HintPath>Resources\Clearcore2.Data.Wiff2.dll</HintPath>
+    </Reference>
+    <Reference Include="Clearcore2.Data.WiffReader">
+      <HintPath>Resources\Clearcore2.Data.WiffReader.dll</HintPath>
+    </Reference>
+    <Reference Include="Clearcore2.Devices.Types">
+      <HintPath>Resources\Clearcore2.Devices.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Clearcore2.Domain.Acquisition">
+      <HintPath>Resources\Clearcore2.Domain.Acquisition.dll</HintPath>
+    </Reference>
+    <Reference Include="Clearcore2.Infrastructure">
+      <HintPath>Resources\Clearcore2.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Clearcore2.InternalRawXYProcessing">
+      <HintPath>Resources\Clearcore2.InternalRawXYProcessing.dll</HintPath>
+    </Reference>
+    <Reference Include="Clearcore2.Muni">
+      <HintPath>Resources\Clearcore2.Muni.dll</HintPath>
+    </Reference>
+    <Reference Include="Clearcore2.RawXYProcessing">
+      <HintPath>Resources\Clearcore2.RawXYProcessing.dll</HintPath>
+    </Reference>
+    <Reference Include="Clearcore2.StructuredStorage">
+      <HintPath>Resources\Clearcore2.StructuredStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="Clearcore2.Utility">
+      <HintPath>Resources\Clearcore2.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="Clearcore2.XmlHelpers">
+      <HintPath>Resources\Clearcore2.XmlHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="SCIEX.Apis.Data.v1">
+      <HintPath>Resources\SCIEX.Apis.Data.v1.dll</HintPath>
+    </Reference>
+    <Reference Include="Sciex.Clearcore.FMan">
+      <HintPath>Resources\Sciex.Clearcore.FMan.dll</HintPath>
+    </Reference>
+    <Reference Include="Sciex.Data.Processing">
+      <HintPath>Resources\Sciex.Data.Processing.dll</HintPath>
+    </Reference>
+    <Reference Include="Sciex.Data.SimpleTypes">
+      <HintPath>Resources\Sciex.Data.SimpleTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="Sciex.Data.XYData">
+      <HintPath>Resources\Sciex.Data.XYData.dll</HintPath>
+    </Reference>
+    <Reference Include="Sciex.FMan">
+      <HintPath>Resources\Sciex.FMan.dll</HintPath>
+    </Reference>
+    <Reference Include="Sciex.Wiff">
+      <HintPath>Resources\Sciex.Wiff.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
