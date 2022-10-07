@@ -35,24 +35,28 @@
             this.tbOutputDir = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnLoad = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbDecimalSeparator = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cbDelimiter = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cbExtension = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btnConvert
             // 
-            this.btnConvert.Location = new System.Drawing.Point(51, 280);
+            this.btnConvert.Location = new System.Drawing.Point(12, 328);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(97, 23);
             this.btnConvert.TabIndex = 0;
             this.btnConvert.Text = "Convert";
             this.btnConvert.UseVisualStyleBackColor = true;
-            this.btnConvert.Click += new System.EventHandler(this.button1_Click);
+            this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
             // 
             // cbNormalizeToTIC
             // 
             this.cbNormalizeToTIC.AutoSize = true;
-            this.cbNormalizeToTIC.Location = new System.Drawing.Point(51, 255);
+            this.cbNormalizeToTIC.Location = new System.Drawing.Point(12, 303);
             this.cbNormalizeToTIC.Name = "cbNormalizeToTIC";
             this.cbNormalizeToTIC.Size = new System.Drawing.Size(175, 19);
             this.cbNormalizeToTIC.TabIndex = 1;
@@ -61,36 +65,38 @@
             // 
             // tbFilenames
             // 
-            this.tbFilenames.Location = new System.Drawing.Point(51, 61);
+            this.tbFilenames.Location = new System.Drawing.Point(12, 41);
             this.tbFilenames.Multiline = true;
             this.tbFilenames.Name = "tbFilenames";
             this.tbFilenames.ReadOnly = true;
             this.tbFilenames.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbFilenames.Size = new System.Drawing.Size(218, 95);
+            this.tbFilenames.Size = new System.Drawing.Size(314, 95);
             this.tbFilenames.TabIndex = 2;
+            this.tbFilenames.WordWrap = false;
             // 
             // btnChangeDir
             // 
-            this.btnChangeDir.Location = new System.Drawing.Point(241, 177);
+            this.btnChangeDir.Location = new System.Drawing.Point(298, 157);
             this.btnChangeDir.Name = "btnChangeDir";
             this.btnChangeDir.Size = new System.Drawing.Size(28, 23);
             this.btnChangeDir.TabIndex = 3;
             this.btnChangeDir.Text = "...";
             this.btnChangeDir.UseVisualStyleBackColor = true;
+            this.btnChangeDir.Click += new System.EventHandler(this.btnChangeDir_Click);
             // 
             // tbOutputDir
             // 
-            this.tbOutputDir.Location = new System.Drawing.Point(51, 177);
+            this.tbOutputDir.Location = new System.Drawing.Point(12, 157);
             this.tbOutputDir.Name = "tbOutputDir";
             this.tbOutputDir.ReadOnly = true;
             this.tbOutputDir.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbOutputDir.Size = new System.Drawing.Size(184, 23);
+            this.tbOutputDir.Size = new System.Drawing.Size(280, 23);
             this.tbOutputDir.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(51, 159);
+            this.label1.Location = new System.Drawing.Point(12, 139);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 15);
             this.label1.TabIndex = 4;
@@ -98,37 +104,77 @@
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(51, 32);
+            this.btnLoad.Location = new System.Drawing.Point(12, 12);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(97, 23);
             this.btnLoad.TabIndex = 0;
             this.btnLoad.Text = "Load Files";
             this.btnLoad.UseVisualStyleBackColor = true;
-            this.btnLoad.Click += new System.EventHandler(this.button1_Click);
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
-            // comboBox1
+            // cbDecimalSeparator
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(295, 214);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 23);
-            this.comboBox1.TabIndex = 5;
+            this.cbDecimalSeparator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDecimalSeparator.FormattingEnabled = true;
+            this.cbDecimalSeparator.Location = new System.Drawing.Point(151, 199);
+            this.cbDecimalSeparator.Name = "cbDecimalSeparator";
+            this.cbDecimalSeparator.Size = new System.Drawing.Size(175, 23);
+            this.cbDecimalSeparator.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(50, 222);
+            this.label2.Location = new System.Drawing.Point(11, 202);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(105, 15);
             this.label2.TabIndex = 4;
             this.label2.Text = "Decimal separator:";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(11, 231);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 15);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Delimiter:";
+            // 
+            // cbDelimiter
+            // 
+            this.cbDelimiter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDelimiter.FormattingEnabled = true;
+            this.cbDelimiter.Location = new System.Drawing.Point(151, 228);
+            this.cbDelimiter.Name = "cbDelimiter";
+            this.cbDelimiter.Size = new System.Drawing.Size(175, 23);
+            this.cbDelimiter.TabIndex = 5;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(11, 260);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(82, 15);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "File extension:";
+            // 
+            // cbExtension
+            // 
+            this.cbExtension.FormattingEnabled = true;
+            this.cbExtension.Location = new System.Drawing.Point(151, 257);
+            this.cbExtension.Name = "cbExtension";
+            this.cbExtension.Size = new System.Drawing.Size(175, 23);
+            this.cbExtension.TabIndex = 5;
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(524, 342);
-            this.Controls.Add(this.comboBox1);
+            this.ClientSize = new System.Drawing.Size(338, 377);
+            this.Controls.Add(this.cbExtension);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.cbDelimiter);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.cbDecimalSeparator);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnChangeDir);
@@ -137,8 +183,11 @@
             this.Controls.Add(this.cbNormalizeToTIC);
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.btnConvert);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "fMain";
             this.Text = "Wiff Converter";
+            this.Load += new System.EventHandler(this.fMain_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,7 +203,11 @@
         private Button btnChangeDir;
         private Label label1;
         private Button btnLoad;
-        private ComboBox comboBox1;
+        private ComboBox cbDecimalSeparator;
         private Label label2;
+        private Label label3;
+        private ComboBox cbDelimiter;
+        private Label label4;
+        private ComboBox cbExtension;
     }
 }
