@@ -7,16 +7,15 @@ using System.Xml;
 using System.IO;
 using System.Reflection;
 using System.Diagnostics;
-
+using System.ComponentModel;
+using System.Globalization;
 
 using Clearcore2.Data;
 using Clearcore2.Data.AnalystDataProvider;
 using Clearcore2.Data.DataAccess;
 using Clearcore2.Data.DataAccess.SampleData;
 //using Sciex.Data.XYData;
-using Clearcore2.RawXYProcessing;
-using System.ComponentModel;
-using System.Globalization;
+//using Clearcore2.RawXYProcessing;
 //using Sciex.FMan;
 
 // inspiration from https://github.com/vdemichev/DiaNN/blob/master/WiffReader/WiffReader.cpp
@@ -29,7 +28,7 @@ namespace WiffReader
     {
         public double[] data;
         public double[] xData;
-        public double[] yData; 
+        public double[] yData;
     }
 
     internal class Reader
@@ -50,7 +49,7 @@ namespace WiffReader
             numberOfSamples = GetNumberOfSamples();
         }
 
-        private void SaveMatrix(Matrix matrix, NumberFormatInfo nfi, string delimiter, string filepath, 
+        private void SaveMatrix(Matrix matrix, NumberFormatInfo nfi, string delimiter, string filepath,
                                 ExportFormat exportFormat, int sigFigures = 6, string tUnit = "min", string wlUnit = "wavelength")
         {
             string strFormat = $"G{sigFigures}";
@@ -76,7 +75,7 @@ namespace WiffReader
                 }
                 else
                 {
-                    string firstLine = $"{wlUnit} -> {wlUnit}{delimiter}" + string.Join(delimiter, matrix.yData.Select(num => num.ToString(strFormat, nfi)));
+                    string firstLine = $"{wlUnit} -> {tUnit}{delimiter}" + string.Join(delimiter, matrix.yData.Select(num => num.ToString(strFormat, nfi)));
                     sw.WriteLine(firstLine);
 
                     for (int j = 0; j < matrix.xData.Length; j++)  // for each row
@@ -121,7 +120,7 @@ namespace WiffReader
                 {
                     throw;
                 }
-                
+
                 int m = msSample.ExperimentCount;
 
                 for (int nExp = 0; nExp < m; nExp++)  // for each MS experiment
@@ -133,7 +132,7 @@ namespace WiffReader
                     startMass = mse.Details.StartMass;
                     endMass = mse.Details.EndMass;
                     diffMass = endMass - startMass;
-                    FullScanMassRange mri = (FullScanMassRange) mse.Details.MassRangeInfo[0];
+                    FullScanMassRange mri = (FullScanMassRange)mse.Details.MassRangeInfo[0];
                     stepSize = mri.StepSize;
 
                     string newFileName = $"{filenamePrefix}{newFilePath}-{sample.Details.SampleName}-{mse.Details.Name}.{fileExtension.ToLower()}";
@@ -170,7 +169,7 @@ namespace WiffReader
                         for (int j = 0; j < xvals.Length; j++)
                         {
                             // calculate the index of the m/z value into the evenly spaced matrix
-                            int idx = (int) Math.Round((xvals[j] - startMass) * (nMz - 1) / diffMass);
+                            int idx = (int)Math.Round((xvals[j] - startMass) * (nMz - 1) / diffMass);
                             mat.data[i * nMz + idx] = normToTIC ? yvals[j] / ticYData[i] : yvals[j];
                         }
                     }
@@ -235,7 +234,7 @@ namespace WiffReader
             }
         }
 
-
+        /*
         public void test()
         {
             Sample sample = batch.GetSample(0);
@@ -266,15 +265,12 @@ namespace WiffReader
 
 
         }
+        */
 
         public int GetNumberOfSamples()
         {
             return _provider.GetNumberOfSamples(this.wiffFilePath);
         }
-
-
-
-
 
     }
 }

@@ -1,4 +1,3 @@
-//using Clearcore2.Licensing;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
@@ -10,10 +9,10 @@ namespace WiffReader
 {
     public enum ExportFormat
     {
-        TimeExplicit = 0, 
+        TimeExplicit = 0,
         WavelengthExplicit = 1
     }
-    
+
     public partial class fMain : Form
     {
         public Dictionary<string, string> delimiters;
@@ -28,7 +27,10 @@ namespace WiffReader
             {
                 { "Comma", "," },
                 { "Tabulator", "\t" },
-                { "Space", " " }
+                { "Space", " " },
+                { "Colon", ":" },
+                { "Semicolon", ";" },
+                { "Dot", "." }
             };
             decimalSeparators = new Dictionary<string, string>
             {
@@ -72,7 +74,7 @@ namespace WiffReader
             NumberFormatInfo nfi = new NumberFormatInfo();
             nfi.NumberDecimalSeparator = decimalSeparators[cbDecimalSeparator.Text];
             string dirPath = tbOutputDir.Text;
-            int sigFigures = (int) nudSignificantFigures.Value;
+            int sigFigures = (int)nudSignificantFigures.Value;
             ExportFormat exportFormat = exportFormats[cbExportFormat.Text];
             bool norm2TIC = cbNormalizeToTIC.Checked;
 
