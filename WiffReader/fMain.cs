@@ -8,37 +8,56 @@ using System.Globalization;
 
 namespace WiffReader
 {
+    public enum ExportFormat
+    {
+        TimeExplicit = 0, 
+        WavelengthExplicit = 1
+    }
+    
     public partial class fMain : Form
     {
-        public Dictionary<int, string> delimiters;
-        public Dictionary<int, string> decimalSeparators;
+        public Dictionary<string, string> delimiters;
+        public Dictionary<string, string> decimalSeparators;
+        public Dictionary<string, ExportFormat> exportFormats;
         public string[]? chosenFilepaths;
 
         public fMain()
         {
             InitializeComponent();
-            delimiters = new Dictionary<int, string>();
-            decimalSeparators = new Dictionary<int, string>();
+            delimiters = new Dictionary<string, string>
+            {
+                { "Comma", "," },
+                { "Tabulator", "\t" },
+                { "Space", " " }
+            };
+            decimalSeparators = new Dictionary<string, string>
+            {
+                { "Dot", "." },
+                { "Comma", "," }
+            };
+            exportFormats = new Dictionary<string, ExportFormat>
+            {
+                { "Time-explicit (scans in columns)", ExportFormat.TimeExplicit },
+                { "Wavelength-explicit (scans in rows)", ExportFormat.WavelengthExplicit }
+            };
         }
 
         private void fMain_Load(object sender, EventArgs e)
         {
-            delimiters.Add(0, "Tabulator");
-            delimiters.Add(1, "Comma");
-            delimiters.Add(2, "Space");
-
-            decimalSeparators.Add(0, "Comma");
-            decimalSeparators.Add(1, "Dot");
-
             cbExtension.Items.Add("csv");
             cbExtension.Items.Add("txt");
 
-            cbDelimiter.Items.AddRange(delimiters.Values.ToArray());
-            cbDecimalSeparator.Items.AddRange(decimalSeparators.Values.ToArray());
+            cbDelimiter.Items.AddRange(delimiters.Keys.ToArray());
+            cbDecimalSeparator.Items.AddRange(decimalSeparators.Keys.ToArray());
+            cbExportFormat.Items.AddRange(exportFormats.Keys.ToArray());
 
             cbDelimiter.SelectedIndex = 0;
             cbDecimalSeparator.SelectedIndex = 0;
             cbExtension.SelectedIndex = 0;
+            cbExportFormat.SelectedIndex = 1;
+
+
+            lblNumberSig.Text = "Number of significant figures\nof exported values:";
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
@@ -46,32 +65,42 @@ namespace WiffReader
             if (chosenFilepaths is null)
                 return;
 
+            btnConvert.Enabled = false;
+
             string fileExt = cbExtension.Text;
-            CultureInfo decimalSeparator = decimalSeparators[cbDecimalSeparator.SelectedIndex] == "Comma" ? CultureInfo.CurrentCulture : CultureInfo.InvariantCulture;
+            string delimiter = delimiters[cbDelimiter.Text];
+            NumberFormatInfo nfi = new NumberFormatInfo();
+            nfi.NumberDecimalSeparator = decimalSeparators[cbDecimalSeparator.Text];
+            string dirPath = tbOutputDir.Text;
+            int sigFigures = (int) nudSignificantFigures.Value;
+            ExportFormat exportFormat = exportFormats[cbExportFormat.Text];
+            bool norm2TIC = cbNormalizeToTIC.Checked;
 
-
-            foreach (string filename in chosenFilepaths)
+            try
             {
-                Reader r = new Reader(filename);
-                r.SaveAbsorptionMatrix();
+                foreach (string filename in chosenFilepaths)
+                {
+                    Reader r = new Reader(filename);
+                    r.SaveAbsorptionMatrix(nfi, delimiter, fileExt, dirPath, exportFormat, sigFigures);
+                    r.SaveMSMatrix(nfi, delimiter, fileExt, dirPath, exportFormat, norm2TIC, sigFigures);
+                }
             }
-            //Console.WriteLine(n);
-
-            //MessageBox.Show(r.GetNumberOfSamples().ToString());
-
-
-
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            btnConvert.Enabled = true;
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-
-            ofd.AddExtension = false;
-            ofd.Filter = "Wiff files (*.wiff)|*.wiff";
-            ofd.RestoreDirectory = true;
-            ofd.Multiselect = true;
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                AddExtension = false,
+                Filter = "Wiff files (*.wiff)|*.wiff",
+                RestoreDirectory = true,
+                Multiselect = true
+            };
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {

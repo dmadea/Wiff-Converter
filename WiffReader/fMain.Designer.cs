@@ -41,11 +41,16 @@
             this.cbDelimiter = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cbExtension = new System.Windows.Forms.ComboBox();
+            this.nudSignificantFigures = new System.Windows.Forms.NumericUpDown();
+            this.lblNumberSig = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cbExportFormat = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSignificantFigures)).BeginInit();
             this.SuspendLayout();
             // 
             // btnConvert
             // 
-            this.btnConvert.Location = new System.Drawing.Point(12, 328);
+            this.btnConvert.Location = new System.Drawing.Point(11, 377);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(97, 23);
             this.btnConvert.TabIndex = 0;
@@ -56,7 +61,7 @@
             // cbNormalizeToTIC
             // 
             this.cbNormalizeToTIC.AutoSize = true;
-            this.cbNormalizeToTIC.Location = new System.Drawing.Point(12, 303);
+            this.cbNormalizeToTIC.Location = new System.Drawing.Point(11, 352);
             this.cbNormalizeToTIC.Name = "cbNormalizeToTIC";
             this.cbNormalizeToTIC.Size = new System.Drawing.Size(175, 19);
             this.cbNormalizeToTIC.TabIndex = 1;
@@ -70,13 +75,13 @@
             this.tbFilenames.Name = "tbFilenames";
             this.tbFilenames.ReadOnly = true;
             this.tbFilenames.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbFilenames.Size = new System.Drawing.Size(314, 95);
+            this.tbFilenames.Size = new System.Drawing.Size(354, 95);
             this.tbFilenames.TabIndex = 2;
             this.tbFilenames.WordWrap = false;
             // 
             // btnChangeDir
             // 
-            this.btnChangeDir.Location = new System.Drawing.Point(298, 157);
+            this.btnChangeDir.Location = new System.Drawing.Point(338, 156);
             this.btnChangeDir.Name = "btnChangeDir";
             this.btnChangeDir.Size = new System.Drawing.Size(28, 23);
             this.btnChangeDir.TabIndex = 3;
@@ -90,7 +95,7 @@
             this.tbOutputDir.Name = "tbOutputDir";
             this.tbOutputDir.ReadOnly = true;
             this.tbOutputDir.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbOutputDir.Size = new System.Drawing.Size(280, 23);
+            this.tbOutputDir.Size = new System.Drawing.Size(320, 23);
             this.tbOutputDir.TabIndex = 2;
             // 
             // label1
@@ -116,9 +121,9 @@
             // 
             this.cbDecimalSeparator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDecimalSeparator.FormattingEnabled = true;
-            this.cbDecimalSeparator.Location = new System.Drawing.Point(151, 199);
+            this.cbDecimalSeparator.Location = new System.Drawing.Point(177, 199);
             this.cbDecimalSeparator.Name = "cbDecimalSeparator";
-            this.cbDecimalSeparator.Size = new System.Drawing.Size(175, 23);
+            this.cbDecimalSeparator.Size = new System.Drawing.Size(189, 23);
             this.cbDecimalSeparator.TabIndex = 5;
             // 
             // label2
@@ -143,9 +148,9 @@
             // 
             this.cbDelimiter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDelimiter.FormattingEnabled = true;
-            this.cbDelimiter.Location = new System.Drawing.Point(151, 228);
+            this.cbDelimiter.Location = new System.Drawing.Point(177, 228);
             this.cbDelimiter.Name = "cbDelimiter";
-            this.cbDelimiter.Size = new System.Drawing.Size(175, 23);
+            this.cbDelimiter.Size = new System.Drawing.Size(189, 23);
             this.cbDelimiter.TabIndex = 5;
             // 
             // label4
@@ -160,20 +165,73 @@
             // cbExtension
             // 
             this.cbExtension.FormattingEnabled = true;
-            this.cbExtension.Location = new System.Drawing.Point(151, 257);
+            this.cbExtension.Location = new System.Drawing.Point(177, 257);
             this.cbExtension.Name = "cbExtension";
-            this.cbExtension.Size = new System.Drawing.Size(175, 23);
+            this.cbExtension.Size = new System.Drawing.Size(189, 23);
             this.cbExtension.TabIndex = 5;
+            // 
+            // nudSignificantFigures
+            // 
+            this.nudSignificantFigures.Location = new System.Drawing.Point(177, 286);
+            this.nudSignificantFigures.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudSignificantFigures.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudSignificantFigures.Name = "nudSignificantFigures";
+            this.nudSignificantFigures.Size = new System.Drawing.Size(189, 23);
+            this.nudSignificantFigures.TabIndex = 6;
+            this.nudSignificantFigures.Value = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            // 
+            // lblNumberSig
+            // 
+            this.lblNumberSig.AutoSize = true;
+            this.lblNumberSig.Location = new System.Drawing.Point(11, 283);
+            this.lblNumberSig.Name = "lblNumberSig";
+            this.lblNumberSig.Size = new System.Drawing.Size(291, 15);
+            this.lblNumberSig.TabIndex = 4;
+            this.lblNumberSig.Text = "Number of significant figures\\n of exported numbers:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 318);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(83, 15);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Export format:";
+            // 
+            // cbExportFormat
+            // 
+            this.cbExportFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbExportFormat.FormattingEnabled = true;
+            this.cbExportFormat.Location = new System.Drawing.Point(177, 315);
+            this.cbExportFormat.Name = "cbExportFormat";
+            this.cbExportFormat.Size = new System.Drawing.Size(189, 23);
+            this.cbExportFormat.TabIndex = 5;
             // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(338, 377);
+            this.ClientSize = new System.Drawing.Size(378, 409);
+            this.Controls.Add(this.nudSignificantFigures);
             this.Controls.Add(this.cbExtension);
+            this.Controls.Add(this.lblNumberSig);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cbDelimiter);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.cbExportFormat);
             this.Controls.Add(this.cbDecimalSeparator);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -188,6 +246,7 @@
             this.Name = "fMain";
             this.Text = "Wiff Converter";
             this.Load += new System.EventHandler(this.fMain_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.nudSignificantFigures)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -198,7 +257,6 @@
         private Button btnConvert;
         private CheckBox cbNormalizeToTIC;
         private TextBox tbFilenames;
-        private Button btnOpen;
         private TextBox tbOutputDir;
         private Button btnChangeDir;
         private Label label1;
@@ -209,5 +267,9 @@
         private ComboBox cbDelimiter;
         private Label label4;
         private ComboBox cbExtension;
+        private NumericUpDown nudSignificantFigures;
+        private Label lblNumberSig;
+        private Label label5;
+        private ComboBox cbExportFormat;
     }
 }
