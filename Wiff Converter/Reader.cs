@@ -21,7 +21,7 @@ using Clearcore2.Data.DataAccess.SampleData;
 // inspiration from https://github.com/vdemichev/DiaNN/blob/master/WiffReader/WiffReader.cpp
 // and https://github.com/ProteoWizard/pwiz/blob/master/pwiz/data/vendor_readers/ABI/Reader_ABI.cpp
 
-namespace WiffReader
+namespace Wiff_Converter
 {
 
     public struct Matrix // C-type stored, row-wise [xData.Length x yData.Length]
@@ -96,8 +96,8 @@ namespace WiffReader
         public void SaveMSMatrix(NumberFormatInfo nfi, string delimiter, string fileExtension, string dirPath,
                                  ExportFormat exportFormat, bool normToTIC = false, int sigFigures = 6, string filenamePrefix = "MS_")
         {
-            string? filename = Path.GetFileName(wiffFilePath);
-            string newFilePath = Path.GetFileNameWithoutExtension(filename);
+            string filename = Path.GetFileName(wiffFilePath);
+            string filePath = Path.GetFileNameWithoutExtension(filename);
 
             if (dirPath is null)
                 return;
@@ -135,8 +135,8 @@ namespace WiffReader
                     FullScanMassRange mri = (FullScanMassRange)mse.Details.MassRangeInfo[0];
                     stepSize = mri.StepSize;
 
-                    string newFileName = $"{filenamePrefix}{newFilePath}-{sample.Details.SampleName}-{mse.Details.Name}.{fileExtension.ToLower()}";
-                    newFilePath = Path.Combine(dirPath, newFileName);
+                    string newFileName = $"{filenamePrefix}{filePath}-{sample.Details.SampleName}-{mse.Details.Name}.{fileExtension.ToLower()}";
+                    string newFilePath = Path.Combine(dirPath, newFileName);
 
                     int nMz = (int)((endMass - startMass) / stepSize) + 1;
 
@@ -153,7 +153,7 @@ namespace WiffReader
                     Debug.Assert(times.Length == nScans);
 
                     // Save data to matrix
-                    Matrix mat = new()
+                    Matrix mat = new Matrix
                     {
                         data = new double[nMz * nScans],
                         xData = mzArr,
@@ -182,8 +182,8 @@ namespace WiffReader
         public void SaveAbsorptionMatrix(NumberFormatInfo nfi, string delimiter, string fileExtension, string dirPath,
                                          ExportFormat exportFormat, int sigFigures = 6, string filenamePrefix = "UV_")
         {
-            string? filename = Path.GetFileName(wiffFilePath);
-            string newFilePath = Path.GetFileNameWithoutExtension(filename);
+            string filename = Path.GetFileName(wiffFilePath);
+            string filePath = Path.GetFileNameWithoutExtension(filename);
 
             if (dirPath is null)
                 return;
@@ -195,8 +195,8 @@ namespace WiffReader
                 if (!sample.HasDADData)
                     continue;
 
-                string newFileName = $"{filenamePrefix}{newFilePath}-{sample.Details.SampleName}.{fileExtension.ToLower()}";
-                newFilePath = Path.Combine(dirPath, newFileName);
+                string newFileName = $"{filenamePrefix}{filePath}-{sample.Details.SampleName}.{fileExtension.ToLower()}";
+                string newFilePath = Path.Combine(dirPath, newFileName);
 
                 DADSample dadSample = sample.DADSample;
                 int nSpectra = dadSample.NumberOfSpectra;
@@ -209,7 +209,7 @@ namespace WiffReader
                 Debug.Assert(times.Length == nSpectra);
 
                 // Save data to matrix
-                Matrix mat = new()
+                Matrix mat = new Matrix
                 {
                     data = new double[nWavelengths * nSpectra],
                     xData = wavelengths,

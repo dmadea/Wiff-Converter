@@ -4,8 +4,10 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using System.IO;
 using System.Globalization;
+using System.Collections.Generic;
+using System;
 
-namespace WiffReader
+namespace Wiff_Converter
 {
     public enum ExportFormat
     {
@@ -18,7 +20,7 @@ namespace WiffReader
         public Dictionary<string, string> delimiters;
         public Dictionary<string, string> decimalSeparators;
         public Dictionary<string, ExportFormat> exportFormats;
-        public string[]? chosenFilepaths;
+        public string[] chosenFilepaths;
 
         public fMain()
         {
@@ -113,7 +115,7 @@ namespace WiffReader
 
                 tbFilenames.Text = string.Join(Environment.NewLine, chosenFilepaths);
 
-                string? dirPath = Path.GetDirectoryName(chosenFilepaths[0]);
+                string dirPath = Path.GetDirectoryName(chosenFilepaths[0]);
                 tbOutputDir.Text = dirPath is null ? "" : dirPath;
             }
 
@@ -122,7 +124,7 @@ namespace WiffReader
         private void btnChangeDir_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fwd = new FolderBrowserDialog();
-            fwd.InitialDirectory = tbOutputDir.Text;
+            //fwd.InitialDirectory = tbOutputDir.Text;
             fwd.ShowNewFolderButton = true;
 
             if (fwd.ShowDialog() == DialogResult.OK)
