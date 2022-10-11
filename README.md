@@ -31,4 +31,4 @@ These can be obtained by installing [ProteoWizard](https://proteowizard.sourcefo
 
 ## Use
 
-When loading, both `*.wiff` and `*.wiff.scan` files need to be located in the same folder. If the sample contains the absorption data, corresponding matrix will be exported to the file which start with a prefix `UV_`. MS matrix file will start with `MS_`.
+When opening a wiff file, both `*.wiff` and `*.wiff.scan` files need to be located in the same folder. If the sample contains the absorption data, corresponding matrix will be exported to the file which start with a prefix `UV_`. Mass data matrix file will start with `MS_`.
