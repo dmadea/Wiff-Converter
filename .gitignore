@@ -35,8 +35,9 @@ bld/
 [Ll]og/
 [Ll]ogs/
 
-#whitelist the exe file
-!Wiff\ Converter/bin/Release/Wiff\ Converter.exe
+Wiff\ Converter/bin/Release/*.dll
+Wiff\ Converter/bin/Release/*.config
+Wiff\ Converter/bin/Release/*.pdb
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
