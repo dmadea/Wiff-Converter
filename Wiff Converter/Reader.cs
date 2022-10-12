@@ -111,17 +111,8 @@ namespace Wiff_Converter
             {
                 if (exportFormat == ExportFormat.WavelengthExplicit)
                 {
-                    StringBuilder sb = new StringBuilder($"{tUnit} -> {wlUnit}{delimiter}");
-                    for (int i = idxX0; i <= idxX1; i++)
-                    {
-                        sb.Append(matrix.xData[i].ToString(strFormat, nfi));
-                        if (i < idxX1)
-                            sb.Append(delimiter);
-                    }
-
-
-                    //string firstLine = $"{tUnit} -> {wlUnit}{delimiter}" + string.Join(delimiter, matrix.xData.Select(num => num.ToString(strFormat, nfi)));
-                    sw.WriteLine(sb.ToString());
+                    string firstLine = $"{tUnit} -> {wlUnit}{delimiter}" + string.Join(delimiter, matrix.xData.Select(num => num.ToString(strFormat, nfi)).ToArray(), idxX0, idxX1 - idxX0 + 1);
+                    sw.WriteLine(firstLine);
 
                     for (int i = idxY0; i <= idxY1; i++)
                     {
@@ -137,16 +128,8 @@ namespace Wiff_Converter
                 }
                 else
                 {
-                    StringBuilder sb = new StringBuilder($"{wlUnit} -> {tUnit}{delimiter}");
-                    for (int i = idxY0; i <= idxY1; i++)
-                    {
-                        sb.Append(matrix.yData[i].ToString(strFormat, nfi));
-                        if (i < idxY1)
-                            sb.Append(delimiter);
-                    }
-
-                    //string firstLine = $"{wlUnit} -> {tUnit}{delimiter}" + string.Join(delimiter, matrix.yData.Select(num => num.ToString(strFormat, nfi)));
-                    sw.WriteLine(sb.ToString());
+                    string firstLine = $"{wlUnit} -> {tUnit}{delimiter}" + string.Join(delimiter, matrix.yData.Select(num => num.ToString(strFormat, nfi)).ToArray(), idxY0, idxY1 - idxY0 + 1);
+                    sw.WriteLine(firstLine);
 
                     for (int j = idxX0; j <= idxX1; j++)  // for each row
                     {
