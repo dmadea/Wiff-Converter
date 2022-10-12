@@ -34,6 +34,7 @@ namespace Wiff_Converter
     internal class Reader
     {
 
+
         public int numberOfSamples;
 
         private AnalystWiffDataProvider _provider;
@@ -49,25 +50,86 @@ namespace Wiff_Converter
             numberOfSamples = GetNumberOfSamples();
         }
 
+        /// <summary>
+        /// Finds nearest index of a value in a sorted array.
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static int FindNearestIndex(double[] array, double value)
+        {
+            // https://stackoverflow.com/questions/41277957/get-closest-value-in-an-array
+            int idx = Array.BinarySearch<double>(array, value);
+            idx = idx < 0 ? ~idx : idx;
+
+            idx = idx == array.Length ? array.Length - 1 : idx;
+
+            if (idx == 0 | idx == array.Length - 1)
+                return idx;
+
+            if (array[idx] - value <= value - array[idx - 1])
+            {
+                return idx;
+            }
+            else
+            {
+                return idx - 1;
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <param name="nfi"></param>
+        /// <param name="delimiter"></param>
+        /// <param name="filepath"></param>
+        /// <param name="exportFormat"></param>
+        /// <param name="sigFigures"></param>
+        /// <param name="tUnit"></param>
+        /// <param name="wlUnit"></param>
+        /// <param name="x0">Start value of exported matrix in second matrix dimension</param>
+        /// <param name="x1">End value of exported matrix in second matrix dimension</param>
+        /// <param name="y0">Start value of exported matrix in first matrix dimension</param>
+        /// <param name="y1">End value of exported matrix in first matrix dimension</param>
         private void SaveMatrix(Matrix matrix, NumberFormatInfo nfi, string delimiter, string filepath,
-                                ExportFormat exportFormat, int sigFigures = 6, string tUnit = "min", string wlUnit = "wavelength")
+                                ExportFormat exportFormat, int sigFigures = 6, string tUnit = "min", string wlUnit = "wavelength",
+                                double? x0 = null, double? x1 = null, double? y0 = null, double? y1 = null)
         {
             string strFormat = $"G{sigFigures}";
+
+            // indexes of the matrix dimensions
+            int idxX0, idxX1, idxY0, idxY1;
+
+            idxX0 = x0 == null ? 0 : FindNearestIndex(matrix.xData, (double)x0);
+            idxX1 = x1 == null ? matrix.xData.Length - 1 : FindNearestIndex(matrix.xData, (double)x1);
+            idxY0 = y0 == null ? 0 : FindNearestIndex(matrix.yData, (double)y0);
+            idxY1 = y1 == null ? matrix.yData.Length - 1 : FindNearestIndex(matrix.yData, (double)y1);
 
             using (StreamWriter sw = new StreamWriter(new FileStream(filepath, FileMode.Create, FileAccess.Write), Encoding.UTF8))
             {
                 if (exportFormat == ExportFormat.WavelengthExplicit)
                 {
-                    string firstLine = $"{tUnit} -> {wlUnit}{delimiter}" + string.Join(delimiter, matrix.xData.Select(num => num.ToString(strFormat, nfi)));
-                    sw.WriteLine(firstLine);
-
-                    for (int i = 0; i < matrix.yData.Length; i++)
+                    StringBuilder sb = new StringBuilder($"{tUnit} -> {wlUnit}{delimiter}");
+                    for (int i = idxX0; i <= idxX1; i++)
                     {
-                        double[] row = new double[matrix.xData.Length];  // rows of a matrix
+                        sb.Append(matrix.xData[i].ToString(strFormat, nfi));
+                        if (i < idxX1)
+                            sb.Append(delimiter);
+                    }
 
-                        for (int j = 0; j < matrix.xData.Length; j++)
+
+                    //string firstLine = $"{tUnit} -> {wlUnit}{delimiter}" + string.Join(delimiter, matrix.xData.Select(num => num.ToString(strFormat, nfi)));
+                    sw.WriteLine(sb.ToString());
+
+                    for (int i = idxY0; i <= idxY1; i++)
+                    {
+                        double[] row = new double[idxX1 - idxX0 + 1];  // rows of a matrix
+
+                        for (int j = idxX0; j <= idxX1; j++)
                         {
-                            row[j] = matrix.data[i * matrix.xData.Length + j];
+                            row[j - idxX0] = matrix.data[i * matrix.xData.Length + j];
                         }
 
                         sw.WriteLine(matrix.yData[i].ToString(strFormat, nfi) + delimiter + string.Join(delimiter, row.Select(num => num.ToString(strFormat, nfi))));
@@ -75,16 +137,24 @@ namespace Wiff_Converter
                 }
                 else
                 {
-                    string firstLine = $"{wlUnit} -> {tUnit}{delimiter}" + string.Join(delimiter, matrix.yData.Select(num => num.ToString(strFormat, nfi)));
-                    sw.WriteLine(firstLine);
-
-                    for (int j = 0; j < matrix.xData.Length; j++)  // for each row
+                    StringBuilder sb = new StringBuilder($"{wlUnit} -> {tUnit}{delimiter}");
+                    for (int i = idxY0; i <= idxY1; i++)
                     {
-                        double[] row = new double[matrix.yData.Length]; // columns of a matrix
+                        sb.Append(matrix.yData[i].ToString(strFormat, nfi));
+                        if (i < idxY1)
+                            sb.Append(delimiter);
+                    }
 
-                        for (int i = 0; i < matrix.yData.Length; i++)
+                    //string firstLine = $"{wlUnit} -> {tUnit}{delimiter}" + string.Join(delimiter, matrix.yData.Select(num => num.ToString(strFormat, nfi)));
+                    sw.WriteLine(sb.ToString());
+
+                    for (int j = idxX0; j <= idxX1; j++)  // for each row
+                    {
+                        double[] row = new double[idxY1 - idxY0 + 1]; // columns of a matrix
+
+                        for (int i = idxY0; i <= idxY1; i++)
                         {
-                            row[i] = matrix.data[i * matrix.xData.Length + j];
+                            row[i - idxY0] = matrix.data[i * matrix.xData.Length + j];
                         }
 
                         sw.WriteLine(matrix.xData[j].ToString(strFormat, nfi) + delimiter + string.Join(delimiter, row.Select(num => num.ToString(strFormat, nfi))));
@@ -94,7 +164,8 @@ namespace Wiff_Converter
         }
 
         public void SaveMSMatrix(NumberFormatInfo nfi, string delimiter, string fileExtension, string dirPath,
-                                 ExportFormat exportFormat, bool normToTIC = false, int sigFigures = 6, string filenamePrefix = "MS_")
+                                 ExportFormat exportFormat, bool normToTIC = false, int sigFigures = 6,
+                                 double? mz0 = null, double? mz1 = null, double? t0 = null, double? t1 = null, string filenamePrefix = "MS_")
         {
             string filename = Path.GetFileName(wiffFilePath);
             string filePath = Path.GetFileNameWithoutExtension(filename);
@@ -174,13 +245,14 @@ namespace Wiff_Converter
                         }
                     }
 
-                    SaveMatrix(mat, nfi, delimiter, newFilePath, exportFormat, sigFigures, "min", "m/z");
+                    SaveMatrix(mat, nfi, delimiter, newFilePath, exportFormat, sigFigures, "min", "m/z", mz0, mz1, t0, t1);
                 }
             }
         }
 
         public void SaveAbsorptionMatrix(NumberFormatInfo nfi, string delimiter, string fileExtension, string dirPath,
-                                         ExportFormat exportFormat, int sigFigures = 6, string filenamePrefix = "UV_")
+                                         ExportFormat exportFormat, int sigFigures = 6,
+                                         double? w0 = null, double? w1 = null, double? t0 = null, double? t1 = null, string filenamePrefix = "UV_")
         {
             string filename = Path.GetFileName(wiffFilePath);
             string filePath = Path.GetFileNameWithoutExtension(filename);
@@ -230,7 +302,7 @@ namespace Wiff_Converter
                     }
                 }
 
-                SaveMatrix(mat, nfi, delimiter, newFilePath, exportFormat, sigFigures, "min", "wavelength");
+                SaveMatrix(mat, nfi, delimiter, newFilePath, exportFormat, sigFigures, "min", "wavelength", w0, w1, t0, t1);
             }
         }
 

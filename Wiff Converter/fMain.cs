@@ -64,6 +64,17 @@ namespace Wiff_Converter
             lblNumberSig.Text = "Number of significant figures\nof exported values:";
         }
 
+        private double? TryParse(string text, NumberStyles ns, IFormatProvider formatProvider)
+        {
+            if (text.Trim() == String.Empty)
+                return null;
+
+            if (double.TryParse(text, ns, formatProvider, out double result))
+                return result;
+
+            return null;
+        }
+
         private void btnConvert_Click(object sender, EventArgs e)
         {
             if (chosenFilepaths is null)
@@ -80,13 +91,21 @@ namespace Wiff_Converter
             ExportFormat exportFormat = exportFormats[cbExportFormat.Text];
             bool norm2TIC = cbNormalizeToTIC.Checked;
 
+            double? t0, t1, w0, w1, m0, m1;
+            t0 = TryParse(tbCropT0.Text.Replace(',', '.'), NumberStyles.Any, nfi);
+            t1 = TryParse(tbCropT1.Text.Replace(',', '.'), NumberStyles.Any, nfi);
+            w0 = TryParse(tbCropW0.Text.Replace(',', '.'), NumberStyles.Any, nfi);
+            w1 = TryParse(tbCropW1.Text.Replace(',', '.'), NumberStyles.Any, nfi);
+            m0 = TryParse(tbCropM0.Text.Replace(',', '.'), NumberStyles.Any, nfi);
+            m1 = TryParse(tbCropM1.Text.Replace(',', '.'), NumberStyles.Any, nfi);
+
             try
             {
                 foreach (string filename in chosenFilepaths)
                 {
                     Reader r = new Reader(filename);
-                    r.SaveAbsorptionMatrix(nfi, delimiter, fileExt, dirPath, exportFormat, sigFigures);
-                    r.SaveMSMatrix(nfi, delimiter, fileExt, dirPath, exportFormat, norm2TIC, sigFigures);
+                    r.SaveAbsorptionMatrix(nfi, delimiter, fileExt, dirPath, exportFormat, sigFigures, w0, w1, t0, t1);
+                    r.SaveMSMatrix(nfi, delimiter, fileExt, dirPath, exportFormat, norm2TIC, sigFigures, m0, m1, t0, t1);
                 }
             }
             catch (Exception ex)
