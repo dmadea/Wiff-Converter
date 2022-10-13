@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
@@ -5,7 +6,9 @@ using System.Xml.Linq;
 using System.IO;
 using System.Globalization;
 using System.Collections.Generic;
-using System;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Collections.Concurrent;
 
 namespace Wiff_Converter
 {
@@ -75,7 +78,7 @@ namespace Wiff_Converter
             return null;
         }
 
-        private void btnConvert_Click(object sender, EventArgs e)
+        private async void btnConvert_Click(object sender, EventArgs e)
         {
             if (chosenFilepaths is null)
                 return;
@@ -99,20 +102,43 @@ namespace Wiff_Converter
             m0 = TryParse(tbCropM0.Text.Replace(',', '.'), NumberStyles.Any, nfi);
             m1 = TryParse(tbCropM1.Text.Replace(',', '.'), NumberStyles.Any, nfi);
 
-            try
+            await Task.Run<ConcurrentQueue<Exception>>(() =>
             {
-                foreach (string filename in chosenFilepaths)
+                var exceptions = new ConcurrentQueue<Exception>();
+
+                Parallel.ForEach(chosenFilepaths, filepath =>
                 {
-                    Reader r = new Reader(filename);
-                    r.SaveAbsorptionMatrix(nfi, delimiter, fileExt, dirPath, exportFormat, sigFigures, w0, w1, t0, t1);
-                    r.SaveMSMatrix(nfi, delimiter, fileExt, dirPath, exportFormat, norm2TIC, sigFigures, m0, m1, t0, t1);
-                }
-            }
-            catch (Exception ex)
+                    try
+                    {
+                        Reader r = new Reader(filepath);
+                        r.SaveAbsorptionMatrix(nfi, delimiter, fileExt, dirPath, exportFormat, sigFigures, w0, w1, t0, t1);
+                        r.SaveMSMatrix(nfi, delimiter, fileExt, dirPath, exportFormat, norm2TIC, sigFigures, m0, m1, t0, t1);
+                    }
+                    catch (Exception ex)
+                    {
+                        exceptions.Enqueue(ex);
+                    }
+
+                });
+
+                return exceptions;
+            }).ContinueWith(task =>
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            btnConvert.Enabled = true;
+                var exQueue = task.Result;
+
+                if (!exQueue.IsEmpty)
+                {
+                    string texts = "One or multiple errors occured:\n\n";
+                    texts += string.Join("\n", exQueue.Select(ex => ex.Message));
+                    MessageBox.Show(texts, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                this.BeginInvoke((MethodInvoker)delegate
+                {
+                    btnConvert.Enabled = true;
+                });
+
+            });
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
