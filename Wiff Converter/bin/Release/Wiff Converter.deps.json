@@ -1,0 +1,347 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Wiff Converter/1.0.0": {
+        "dependencies": {
+          "Clearcore2.Compression": "3.0.0.0",
+          "Clearcore2.Data.AnalystDataProvider": "3.0.0.0",
+          "Clearcore2.Data.Client": "3.0.0.0",
+          "Clearcore2.Data.CommonInterfaces": "3.0.0.0",
+          "Clearcore2.Data": "3.0.0.0",
+          "Clearcore2.Data.Wiff2": "3.0.0.0",
+          "Clearcore2.Data.WiffReader": "3.0.0.0",
+          "Clearcore2.Devices.Types": "1.0.0.0",
+          "Clearcore2.Domain.Acquisition": "3.0.0.0",
+          "Clearcore2.Infrastructure": "3.0.0.0",
+          "Clearcore2.InternalRawXYProcessing": "3.0.0.0",
+          "Clearcore2.Muni": "1.5.0.0",
+          "Clearcore2.RawXYProcessing": "3.0.0.0",
+          "Clearcore2.StructuredStorage": "3.0.0.0",
+          "Clearcore2.Utility": "3.0.0.0",
+          "Clearcore2.XmlHelpers": "1.0.0.0",
+          "SCIEX.Apis.Data.v1": "1.0.0.0",
+          "Sciex.Clearcore.FMan": "3.0.0.0",
+          "Sciex.Data.Processing": "3.0.0.0",
+          "Sciex.Data.SimpleTypes": "3.0.0.0",
+          "Sciex.Data.XYData": "3.0.0.0",
+          "Sciex.FMan": "3.0.0.0",
+          "Sciex.Wiff": "3.0.0.0"
+        },
+        "runtime": {
+          "Wiff Converter.dll": {}
+        }
+      },
+      "Clearcore2.Compression/3.0.0.0": {
+        "runtime": {
+          "Clearcore2.Compression.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Clearcore2.Data.AnalystDataProvider/3.0.0.0": {
+        "runtime": {
+          "Clearcore2.Data.AnalystDataProvider.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Clearcore2.Data.Client/3.0.0.0": {
+        "runtime": {
+          "Clearcore2.Data.Client.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Clearcore2.Data.CommonInterfaces/3.0.0.0": {
+        "runtime": {
+          "Clearcore2.Data.CommonInterfaces.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Clearcore2.Data/3.0.0.0": {
+        "runtime": {
+          "Clearcore2.Data.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Clearcore2.Data.Wiff2/3.0.0.0": {
+        "runtime": {
+          "Clearcore2.Data.Wiff2.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Clearcore2.Data.WiffReader/3.0.0.0": {
+        "runtime": {
+          "Clearcore2.Data.WiffReader.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Clearcore2.Devices.Types/1.0.0.0": {
+        "runtime": {
+          "Clearcore2.Devices.Types.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.1.0.646"
+          }
+        }
+      },
+      "Clearcore2.Domain.Acquisition/3.0.0.0": {
+        "runtime": {
+          "Clearcore2.Domain.Acquisition.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Clearcore2.Infrastructure/3.0.0.0": {
+        "runtime": {
+          "Clearcore2.Infrastructure.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Clearcore2.InternalRawXYProcessing/3.0.0.0": {
+        "runtime": {
+          "Clearcore2.InternalRawXYProcessing.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Clearcore2.Muni/1.5.0.0": {
+        "runtime": {
+          "Clearcore2.Muni.dll": {
+            "assemblyVersion": "1.5.0.0",
+            "fileVersion": "1.5.10656.4"
+          }
+        }
+      },
+      "Clearcore2.RawXYProcessing/3.0.0.0": {
+        "runtime": {
+          "Clearcore2.RawXYProcessing.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Clearcore2.StructuredStorage/3.0.0.0": {
+        "runtime": {
+          "Clearcore2.StructuredStorage.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Clearcore2.Utility/3.0.0.0": {
+        "runtime": {
+          "Clearcore2.Utility.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Clearcore2.XmlHelpers/1.0.0.0": {
+        "runtime": {
+          "Clearcore2.XmlHelpers.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.1.0.646"
+          }
+        }
+      },
+      "SCIEX.Apis.Data.v1/1.0.0.0": {
+        "runtime": {
+          "SCIEX.Apis.Data.v1.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.4.0.0"
+          }
+        }
+      },
+      "Sciex.Clearcore.FMan/3.0.0.0": {
+        "runtime": {
+          "Sciex.Clearcore.FMan.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Sciex.Data.Processing/3.0.0.0": {
+        "runtime": {
+          "Sciex.Data.Processing.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Sciex.Data.SimpleTypes/3.0.0.0": {
+        "runtime": {
+          "Sciex.Data.SimpleTypes.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Sciex.Data.XYData/3.0.0.0": {
+        "runtime": {
+          "Sciex.Data.XYData.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Sciex.FMan/3.0.0.0": {
+        "runtime": {
+          "Sciex.FMan.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "Sciex.Wiff/3.0.0.0": {
+        "runtime": {
+          "Sciex.Wiff.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Wiff Converter/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.Compression/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.Data.AnalystDataProvider/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.Data.Client/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.Data.CommonInterfaces/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.Data/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.Data.Wiff2/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.Data.WiffReader/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.Devices.Types/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.Domain.Acquisition/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.Infrastructure/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.InternalRawXYProcessing/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.Muni/1.5.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.RawXYProcessing/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.StructuredStorage/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.Utility/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Clearcore2.XmlHelpers/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SCIEX.Apis.Data.v1/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Sciex.Clearcore.FMan/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Sciex.Data.Processing/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Sciex.Data.SimpleTypes/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Sciex.Data.XYData/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Sciex.FMan/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Sciex.Wiff/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
