@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
+using Clearcore2.Data.DataAccess;
 
 namespace Wiff_Converter
 {
@@ -102,6 +104,14 @@ namespace Wiff_Converter
             m0 = TryParse(tbCropM0.Text.Replace(',', '.'), NumberStyles.Any, nfi);
             m1 = TryParse(tbCropM1.Text.Replace(',', '.'), NumberStyles.Any, nfi);
 
+            // For serial processing
+            //foreach(string filepath in chosenFilepaths)
+            //{
+            //    Reader r = new Reader(filepath);
+            //    r.SaveAbsorptionMatrix(nfi, delimiter, fileExt, dirPath, exportFormat, sigFigures, w0, w1, t0, t1);
+            //    r.SaveMSMatrix(nfi, delimiter, fileExt, dirPath, exportFormat, norm2TIC, sigFigures, m0, m1, t0, t1);
+            //}
+
             await Task.Run<ConcurrentQueue<Exception>>(() =>
             {
                 var exceptions = new ConcurrentQueue<Exception>();
@@ -111,8 +121,8 @@ namespace Wiff_Converter
                     try
                     {
                         Reader r = new Reader(filepath);
-                        r.SaveAbsorptionMatrix(nfi, delimiter, fileExt, dirPath, exportFormat, sigFigures, w0, w1, t0, t1);
-                        r.SaveMSMatrix(nfi, delimiter, fileExt, dirPath, exportFormat, norm2TIC, sigFigures, m0, m1, t0, t1);
+                        r.SaveAbsorptionMatrix(exceptions, nfi, delimiter, fileExt, dirPath, exportFormat, sigFigures, w0, w1, t0, t1);
+                        r.SaveMSMatrix(exceptions, nfi, delimiter, fileExt, dirPath, exportFormat, norm2TIC, sigFigures, m0, m1, t0, t1);
                     }
                     catch (Exception ex)
                     {

@@ -14,6 +14,7 @@ using Clearcore2.Data;
 using Clearcore2.Data.AnalystDataProvider;
 using Clearcore2.Data.DataAccess;
 using Clearcore2.Data.DataAccess.SampleData;
+using System.Collections.Concurrent;
 //using Sciex.Data.XYData;
 //using Clearcore2.RawXYProcessing;
 //using Sciex.FMan;
@@ -146,7 +147,7 @@ namespace Wiff_Converter
             }
         }
 
-        public void SaveMSMatrix(NumberFormatInfo nfi, string delimiter, string fileExtension, string dirPath,
+        public void SaveMSMatrix(ConcurrentQueue<Exception> exceptions, NumberFormatInfo nfi, string delimiter, string fileExtension, string dirPath,
                                  ExportFormat exportFormat, bool normToTIC = false, int sigFigures = 6,
                                  double? mz0 = null, double? mz1 = null, double? t0 = null, double? t1 = null, string filenamePrefix = "MS_")
         {
@@ -158,7 +159,16 @@ namespace Wiff_Converter
 
             for (int n = 0; n < numberOfSamples; n++) // for each sample
             {
-                Sample sample = batch.GetSample(n);
+                Sample sample;
+                try
+                {
+                    sample = batch.GetSample(n);
+                }
+                catch (Exception ex)
+                {
+                    exceptions.Enqueue(ex);
+                    continue;
+                }
 
                 if (!sample.HasMassSpectrometerData)
                     continue;
@@ -233,7 +243,7 @@ namespace Wiff_Converter
             }
         }
 
-        public void SaveAbsorptionMatrix(NumberFormatInfo nfi, string delimiter, string fileExtension, string dirPath,
+        public void SaveAbsorptionMatrix(ConcurrentQueue<Exception> exceptions, NumberFormatInfo nfi, string delimiter, string fileExtension, string dirPath,
                                          ExportFormat exportFormat, int sigFigures = 6,
                                          double? w0 = null, double? w1 = null, double? t0 = null, double? t1 = null, string filenamePrefix = "UV_")
         {
@@ -245,7 +255,16 @@ namespace Wiff_Converter
 
             for (int n = 0; n < numberOfSamples; n++)
             {
-                Sample sample = batch.GetSample(n);
+                Sample sample;
+                try
+                {
+                    sample = batch.GetSample(n);
+                }
+                catch (Exception ex)
+                {
+                    exceptions.Enqueue(ex);
+                    continue;
+                }
 
                 if (!sample.HasDADData)
                     continue;
